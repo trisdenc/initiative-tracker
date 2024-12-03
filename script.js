@@ -30,6 +30,8 @@ function displayCharacters() {
 
   characters.forEach((char, index) => {
     const li = document.createElement('li');
+    li.className = index === currentIndex ? 'active' : ''; // Add 'active' class to the current character
+
     li.innerHTML = `
       ${char.avatar ? `<img src="${char.avatar}" class="character-avatar" alt="${char.name}">` : ''}
       <div class="character-info">
@@ -44,13 +46,10 @@ function displayCharacters() {
       </div>
       <button onclick="removeCharacter(${index})">Remove</button>
     `;
-    if (index === currentIndex) {
-      li.style.fontWeight = 'bold'; // Highlight current turn
-      li.style.backgroundColor = '#f0f8ff'; // Light highlight for active turn
-    }
     characterList.appendChild(li);
   });
 }
+
 
 // Update HP for a character
 function updateHP(index, change) {
