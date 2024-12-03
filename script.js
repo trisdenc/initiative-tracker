@@ -30,7 +30,9 @@ function displayCharacters() {
 
   characters.forEach((char, index) => {
     // Determine the character's status
-    if (char.hp <= char.maxHp * 0.5) {
+    if (char.hp <= 0) {
+      char.status = 'Dead';
+    } else if (char.hp <= char.maxHp * 0.5) {
       char.status = 'Bloodied';
     } else {
       char.status = ''; // Reset if no longer bloodied
@@ -42,9 +44,9 @@ function displayCharacters() {
     li.innerHTML = `
       ${char.avatar ? `<img src="${char.avatar}" class="character-avatar" alt="${char.name}">` : ''}
       <div class="character-info">
-        <strong>${char.name}</strong> (Initiative: ${char.initiative})
+        <strong>${char.name}</strong> (Initiative: ${char.initiative}) ${index === currentIndex ? '⬅️' : ''}
         <span>HP: <strong>${char.hp}</strong>/${char.maxHp}</span>
-        <span class="status ${char.status === 'Bloodied' ? 'bloodied' : ''}">${char.status}</span>
+        <span class="status ${char.status === 'Bloodied' ? 'bloodied' : char.status === 'Dead' ? 'dead' : ''}">${char.status}</span>
       </div>
       <div class="hp-controls">
         <button class="minus" onclick="updateHP(${index}, -getHPInput(${index}))">-</button>
@@ -60,10 +62,7 @@ function displayCharacters() {
 // Update HP for a character
 function updateHP(index, change) {
   characters[index].hp += change;
-  if (characters[index].hp <= 0) {
-    characters[index].hp = 0;
-    characters[index].status = 'Dead';
-  }
+  if (characters[index].hp < 0) characters[index].hp = 0; // Prevent HP from going negative
   saveToLocalStorage();
   displayCharacters();
 }
