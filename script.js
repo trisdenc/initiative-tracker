@@ -116,4 +116,64 @@ function getHPInput(index) {
 }
 
 // Remove a character from the tracker
-function removeCharacter
+function removeCharacter(index) {
+  characters.splice(index, 1);
+  saveToLocalStorage();
+  displayCharacters();
+}
+
+// Advance to the next turn
+function nextTurn() {
+  if (characters.length === 0) return;
+
+  currentIndex = (currentIndex + 1) % characters.length; // Loop back to the start
+  if (currentIndex === 0) {
+    roundCounter++;
+    document.getElementById('round-counter').innerText = `Round: ${roundCounter}`;
+  }
+  saveToLocalStorage();
+  displayCharacters();
+}
+
+// Dark Mode Toggle
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+}
+
+// Export and Import
+function exportData() {
+  const dataStr = JSON.stringify(characters);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'initiative-tracker.json';
+  a.click();
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    characters = JSON.parse(e.target.result);
+    saveToLocalStorage();
+    displayCharacters();
+  };
+  reader.readAsText(file);
+}
+
+// LocalStorage
+function saveToLocalStorage() {
+  localStorage.setItem('trackerData', JSON.stringify(characters));
+}
+
+function loadFromLocalStorage() {
+  const savedData = JSON.parse(localStorage.getItem('trackerData'));
+  if (savedData) {
+    characters = savedData;
+    displayCharacters();
+  }
+}
+
+// Load data on page load
+window.onload = loadFromLocalStorage;
