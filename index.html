@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Initiative Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Initiative Tracker</h1>
+  
+  <div id="character-form">
+    <input type="text" id="character-name" placeholder="Character Name">
+    <input type="number" id="initiative-score" placeholder="Initiative Score">
+    <button onclick="addCharacter()">Add Character</button>
+  </div>
+  
+  <div id="tracker">
+    <h2>Turn Order</h2>
+    <ul id="character-list"></ul>
+  </div>
+  
+  <button onclick="nextTurn()">Next Turn</button>
+  <div id="current-turn"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
