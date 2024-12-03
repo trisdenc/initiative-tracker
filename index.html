@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D Initiative Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>D&D Initiative Tracker</h1>
+  </header>
+
+  <div class="dark-mode-toggle">
+    <label class="switch">
+      <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()">
+      <span class="slider"></span>
+    </label>
+    <span>Dark Mode</span>
+  </div>
+
+  <div id="controls">
+    <button onclick="exportData()">Export</button>
+    <input type="file" id="import-file" onchange="importData(event)" hidden>
+    <button onclick="document.getElementById('import-file').click()">Import</button>
+    <button onclick="resetRounds()">Reset Rounds</button>
+  </div>
+
+  <div id="character-form">
+    <input type="text" id="character-name" placeholder="Character Name">
+    <input type="number" id="initiative-score" placeholder="Initiative Score">
+    <input type="number" id="hp" placeholder="HP">
+    <button onclick="addCharacter()">Add Character</button>
+  </div>
+  
+  <div id="tracker">
+    <h2>Turn Order <span id="round-counter">Round: 1</span></h2>
+    <ul id="character-list"></ul>
+  </div>
+
+  <button onclick="nextTurn()">Next Turn</button>
+
+  <footer>
+    <p>Adventure Awaits!</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

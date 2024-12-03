@@ -1,0 +1,251 @@
+/* General Styles */
+body {
+  font-family: 'Cinzel', serif;
+  background-color: #1E3A5F; /* Dark Blue */
+  color: #F4E3C0; /* Light Tan */
+  margin: 0;
+  padding: 20px;
+}
+
+header, footer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+footer {
+  margin-top: 30px;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+/* Buttons */
+button {
+  background-color: #D4AF37; /* Gold */
+  color: #1E3A5F; /* Dark Blue */
+  border: 1px solid #8B0000; /* Dark Red */
+  border-radius: 5px;
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+  background-color: #F4E3C0; /* Light Tan */
+  color: #8B0000; /* Dark Red */
+  transform: scale(1.1); /* Subtle pop */
+}
+
+button:active {
+  transform: scale(1.05);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Character List */
+#character-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#character-list li {
+  background-color: #2C4A72; /* Slightly lighter blue */
+  border: 1px solid #8B0000;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#character-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #D4AF37; /* Gold */
+  color: #1E3A5F; /* Dark Blue */
+}
+
+#character-list li.active {
+  background-color: #8B0000; /* Dark Red */
+  color: #F4E3C0; /* Light Tan */
+  font-weight: bold;
+  animation: glow 2s infinite;
+}
+
+.character-info {
+  flex-grow: 1;
+}
+
+.character-info .status {
+  font-size: 14px;
+}
+
+.character-info .conditions span {
+  display: inline-block;
+  background-color: #D4AF37;
+  color: #1E3A5F;
+  border: 1px solid #8B0000;
+  border-radius: 5px;
+  padding: 2px 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.character-info .conditions span:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px #D4AF37;
+}
+
+/* HP Controls */
+.hp-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hp-controls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.hp-controls button.minus {
+  background-color: #dc3545; /* Red for Damage */
+}
+
+.hp-controls button.plus {
+  background-color: #28a745; /* Green for Heal */
+}
+
+.hp-controls button:hover {
+  transform: scale(1.1);
+}
+
+.hp-controls input {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #8B0000;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Avatar SVG Styling */
+.character-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #333;
+  color: #eee;
+}
+
+button.dark-mode {
+  background-color: #444;
+  color: #ddd;
+}
+
+button.dark-mode:hover {
+  background-color: #666;
+}
+
+/* Animations */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px #D4AF37; }
+  50% { box-shadow: 0 0 15px #D4AF37; }
+  100% { box-shadow: 0 0 5px #D4AF37; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-20px); }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .hp-controls input {
+    width: 40px;
+  }
+
+  .character-avatar {
+    width: 50px;
+    height: 50px;
+  }
+}
