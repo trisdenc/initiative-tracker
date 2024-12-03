@@ -61,6 +61,12 @@ h1, h2 {
   font-weight: bold;
 }
 
+.character-info .status.dead {
+  color: #6c757d; /* Grey text for "Dead" status */
+  font-weight: bold;
+  font-style: italic;
+}
+
 .hp-controls {
   display: flex;
   align-items: center;
@@ -95,4 +101,10 @@ h1, h2 {
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.active .character-info {
+  background-color: #d3d3d3;
+  padding: 10px;
+  border-radius: 8px;
 }
