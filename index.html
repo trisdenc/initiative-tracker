@@ -7,17 +7,25 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="controls">
+    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <button onclick="exportData()">Export</button>
+    <input type="file" id="import-file" onchange="importData(event)" hidden>
+    <button onclick="document.getElementById('import-file').click()">Import</button>
+  </div>
+
   <h1>Initiative Tracker</h1>
   
   <div id="character-form">
     <input type="text" id="character-name" placeholder="Character Name">
     <input type="number" id="initiative-score" placeholder="Initiative Score">
     <input type="number" id="hp" placeholder="HP">
+    <input type="text" id="avatar-url" placeholder="Avatar URL (Optional)">
     <button onclick="addCharacter()">Add Character</button>
   </div>
   
   <div id="tracker">
-    <h2>Turn Order</h2>
+    <h2>Turn Order <span id="round-counter">Round: 1</span></h2>
     <ul id="character-list"></ul>
   </div>
   
