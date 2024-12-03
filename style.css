@@ -55,12 +55,13 @@ button {
 
 .hp-controls {
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 
 .hp-controls button {
-  width: 30px; /* Circular buttons */
-  height: 30px;
+  width: 40px; /* Circular buttons */
+  height: 40px;
   border-radius: 50%; /* Make buttons round */
   font-size: 16px;
   font-weight: bold;
@@ -86,6 +87,15 @@ button {
 
 .hp-controls button.plus:hover {
   background-color: #218838;
+}
+
+.hp-input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #current-turn {
