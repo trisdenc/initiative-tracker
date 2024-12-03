@@ -135,7 +135,22 @@ function removeCharacter(index) {
   displayCharacters();
 }
 
-// Advance to the next turn
+// Update conditions with turn timers
+function advanceTurnTimers() {
+  characters.forEach((char) => {
+    char.conditions = char.conditions
+      .map((condition) => {
+        if (condition.duration && condition.duration > 0) {
+          return { ...condition, duration: condition.duration - 1 };
+        }
+        return condition;
+      })
+      .filter((condition) => !condition.duration || condition.duration > 0); // Remove expired conditions
+  });
+  displayCharacters();
+}
+
+// Call this function at the start of `nextTurn`
 function nextTurn() {
   if (characters.length === 0) return;
 
@@ -144,6 +159,7 @@ function nextTurn() {
     roundCounter++;
     document.getElementById('round-counter').innerText = `Round: ${roundCounter}`;
   }
+  advanceTurnTimers(); // Decrease turn timers
   saveToLocalStorage();
   displayCharacters();
 }
