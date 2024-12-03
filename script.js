@@ -10,7 +10,7 @@ function addCharacter() {
   const avatar = document.getElementById('avatar-url').value;
 
   if (name && !isNaN(initiative) && !isNaN(hp)) {
-    characters.push({ name, initiative, hp, avatar, status: '', notes: '' });
+    characters.push({ name, initiative, hp, maxHp: hp, avatar, status: '' });
     characters.sort((a, b) => b.initiative - a.initiative); // Sort by initiative
     saveToLocalStorage();
     displayCharacters();
@@ -29,6 +29,13 @@ function displayCharacters() {
   characterList.innerHTML = ''; // Clear the current list
 
   characters.forEach((char, index) => {
+    // Determine the character's status
+    if (char.hp <= char.maxHp * 0.5) {
+      char.status = 'Bloodied';
+    } else {
+      char.status = ''; // Reset if no longer bloodied
+    }
+
     const li = document.createElement('li');
     li.className = index === currentIndex ? 'active' : ''; // Add 'active' class to the current character
 
@@ -36,8 +43,8 @@ function displayCharacters() {
       ${char.avatar ? `<img src="${char.avatar}" class="character-avatar" alt="${char.name}">` : ''}
       <div class="character-info">
         <strong>${char.name}</strong> (Initiative: ${char.initiative})
-        <span>HP: <strong>${char.hp}</strong></span>
-        <span class="status">${char.status}</span>
+        <span>HP: <strong>${char.hp}</strong>/${char.maxHp}</span>
+        <span class="status ${char.status === 'Bloodied' ? 'bloodied' : ''}">${char.status}</span>
       </div>
       <div class="hp-controls">
         <button class="minus" onclick="updateHP(${index}, -getHPInput(${index}))">-</button>
@@ -49,7 +56,6 @@ function displayCharacters() {
     characterList.appendChild(li);
   });
 }
-
 
 // Update HP for a character
 function updateHP(index, change) {
