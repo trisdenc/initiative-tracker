@@ -55,6 +55,9 @@ function displayCharacters() {
         <strong>${char.name}</strong> (Initiative: ${char.initiative}) ${index === currentIndex ? '⬅️' : ''}
         <span>HP: <strong>${char.hp}</strong>/${char.maxHp}</span>
         <span class="status ${char.status === 'Bloodied' ? 'bloodied' : char.status === 'Dead' ? 'dead' : ''}">${char.status}</span>
+        <div class="conditions">
+          ${char.conditions.length > 0 ? char.conditions.map(c => `<span>${c}</span>`).join('') : 'No conditions'}
+        </div>
         <div>
           <label class="condition-label">Condition:</label>
           <select class="condition-select" onchange="updateCondition(${index}, this.value)">
@@ -99,7 +102,7 @@ function updateHP(index, change) {
 function updateCondition(index, condition) {
   if (condition) {
     if (!characters[index].conditions.includes(condition)) {
-      characters[index].conditions.push(condition);
+      characters[index].conditions.push(condition); // Add condition
     }
   } else {
     characters[index].conditions = []; // Reset conditions if "None" is selected
