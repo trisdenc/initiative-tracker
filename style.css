@@ -36,6 +36,23 @@ h1, h2 {
 #character-list li {
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.character-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.hp-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.hp-controls button {
+  padding: 5px;
+  font-size: 12px;
 }
 
 button {
