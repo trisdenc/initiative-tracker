@@ -32,8 +32,9 @@ function displayCharacters() {
         <span>HP: <strong>${char.hp}</strong></span>
       </div>
       <div class="hp-controls">
-        <button class="minus" onclick="updateHP(${index}, -1)">-</button>
-        <button class="plus" onclick="updateHP(${index}, 1)">+</button>
+        <button class="minus" onclick="updateHP(${index}, -getHPInput(${index}))">-</button>
+        <input type="number" class="hp-input" id="hp-input-${index}" placeholder="0">
+        <button class="plus" onclick="updateHP(${index}, getHPInput(${index}))">+</button>
       </div>
     `;
     if (index === currentIndex) {
@@ -42,6 +43,13 @@ function displayCharacters() {
     }
     characterList.appendChild(li);
   });
+}
+
+// Get the value from the HP input field
+function getHPInput(index) {
+  const input = document.getElementById(`hp-input-${index}`);
+  const value = parseInt(input.value);
+  return isNaN(value) ? 0 : value; // Default to 0 if the input is invalid
 }
 
 // Update HP for a character
