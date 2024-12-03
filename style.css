@@ -9,7 +9,7 @@ body {
 
 body.dark-mode {
   background-color: #333;
-  color: #898989;
+  color: #f4f4f9;
 }
 
 h1, h2 {
@@ -103,8 +103,16 @@ h1, h2 {
   border-radius: 5px;
 }
 
-.active .character-info {
-  background-color: #d3d3d3;
-  padding: 10px;
-  border-radius: 8px;
+/* Dropdown Styling */
+.condition-select {
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.condition-label {
+  font-size: 12px;
+  color: #666;
+  margin-right: 5px;
 }
