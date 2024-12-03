@@ -5,15 +5,17 @@ let currentIndex = 0;
 function addCharacter() {
   const name = document.getElementById('character-name').value;
   const initiative = parseInt(document.getElementById('initiative-score').value);
+  const hp = parseInt(document.getElementById('hp').value);
 
-  if (name && !isNaN(initiative)) {
-    characters.push({ name, initiative });
+  if (name && !isNaN(initiative) && !isNaN(hp)) {
+    characters.push({ name, initiative, hp });
     characters.sort((a, b) => b.initiative - a.initiative); // Sort by initiative
     displayCharacters();
     document.getElementById('character-name').value = '';
     document.getElementById('initiative-score').value = '';
+    document.getElementById('hp').value = '';
   } else {
-    alert('Please enter a valid name and initiative score.');
+    alert('Please enter valid name, initiative score, and HP.');
   }
 }
 
@@ -24,10 +26,26 @@ function displayCharacters() {
 
   characters.forEach((char, index) => {
     const li = document.createElement('li');
-    li.textContent = `${char.name} (Initiative: ${char.initiative})`;
+    li.innerHTML = `
+      <div class="character-info">
+        <strong>${char.name}</strong> (Initiative: ${char.initiative})
+        <span>HP: ${char.hp}</span>
+      </div>
+      <div class="hp-controls">
+        <button onclick="updateHP(${index}, -1)">-</button>
+        <button onclick="updateHP(${index}, 1)">+</button>
+      </div>
+    `;
     if (index === currentIndex) li.style.fontWeight = 'bold'; // Highlight current turn
     characterList.appendChild(li);
   });
+}
+
+// Update HP for a character
+function updateHP(index, change) {
+  characters[index].hp += change;
+  if (characters[index].hp < 0) characters[index].hp = 0; // Prevent negative HP
+  displayCharacters();
 }
 
 // Advance to the next turn
