@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1, h2 {
+  color: #444;
+}
+
+#character-form {
+  margin: 20px 0;
+}
+
+#character-form input {
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+#tracker {
+  margin: 20px 0;
+  width: 300px;
+}
+
+#character-list {
+  list-style: none;
+  padding: 0;
+}
+
+#character-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+#current-turn {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
