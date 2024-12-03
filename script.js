@@ -169,6 +169,26 @@ function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
 }
 
+let log = [];
+
+function logEvent(event) {
+  log.push(event);
+}
+
+function exportLog() {
+  const dataStr = JSON.stringify(log, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "initiative-log.json";
+  a.click();
+}
+
+// Example usage:
+logEvent({ type: "damage", target: "Goblin", amount: 5, timestamp: new Date() });
+
+
 // Export and Import
 function exportData() {
   const dataStr = JSON.stringify(characters);
