@@ -32,31 +32,14 @@ function displayCharacters() {
         <span>HP: <strong>${char.hp}</strong></span>
       </div>
       <div class="hp-controls">
-        <button onclick="updateHP(${index}, -1)">-</button>
-        <button onclick="updateHP(${index}, 1)">+</button>
+        <button class="minus" onclick="updateHP(${index}, -1)">-</button>
+        <button class="plus" onclick="updateHP(${index}, 1)">+</button>
       </div>
     `;
     if (index === currentIndex) {
       li.style.fontWeight = 'bold'; // Highlight current turn
       li.style.backgroundColor = '#f0f8ff'; // Optional: Light highlight for active turn
     }
-    characterList.appendChild(li);
-  });
-}
-
-  characters.forEach((char, index) => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <div class="character-info">
-        <strong>${char.name}</strong> (Initiative: ${char.initiative})
-        <span>HP: ${char.hp}</span>
-      </div>
-      <div class="hp-controls">
-        <button onclick="updateHP(${index}, -1)">-</button>
-        <button onclick="updateHP(${index}, 1)">+</button>
-      </div>
-    `;
-    if (index === currentIndex) li.style.fontWeight = 'bold'; // Highlight current turn
     characterList.appendChild(li);
   });
 }
