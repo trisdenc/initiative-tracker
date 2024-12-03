@@ -10,7 +10,15 @@ function addCharacter() {
   const avatar = document.getElementById('avatar-url').value;
 
   if (name && !isNaN(initiative) && !isNaN(hp)) {
-    characters.push({ name, initiative, hp, maxHp: hp, avatar, status: '' });
+    characters.push({
+      name,
+      initiative,
+      hp,
+      maxHp: hp,
+      avatar,
+      status: '',
+      conditions: [], // Initialize with no conditions
+    });
     characters.sort((a, b) => b.initiative - a.initiative); // Sort by initiative
     saveToLocalStorage();
     displayCharacters();
@@ -47,6 +55,26 @@ function displayCharacters() {
         <strong>${char.name}</strong> (Initiative: ${char.initiative}) ${index === currentIndex ? '⬅️' : ''}
         <span>HP: <strong>${char.hp}</strong>/${char.maxHp}</span>
         <span class="status ${char.status === 'Bloodied' ? 'bloodied' : char.status === 'Dead' ? 'dead' : ''}">${char.status}</span>
+        <div>
+          <label class="condition-label">Condition:</label>
+          <select class="condition-select" onchange="updateCondition(${index}, this.value)">
+            <option value="">None</option>
+            <option value="Blinded">Blinded</option>
+            <option value="Charmed">Charmed</option>
+            <option value="Deafened">Deafened</option>
+            <option value="Frightened">Frightened</option>
+            <option value="Grappled">Grappled</option>
+            <option value="Incapacitated">Incapacitated</option>
+            <option value="Invisible">Invisible</option>
+            <option value="Paralyzed">Paralyzed</option>
+            <option value="Petrified">Petrified</option>
+            <option value="Poisoned">Poisoned</option>
+            <option value="Prone">Prone</option>
+            <option value="Restrained">Restrained</option>
+            <option value="Stunned">Stunned</option>
+            <option value="Unconscious">Unconscious</option>
+          </select>
+        </div>
       </div>
       <div class="hp-controls">
         <button class="minus" onclick="updateHP(${index}, -getHPInput(${index}))">-</button>
@@ -67,6 +95,19 @@ function updateHP(index, change) {
   displayCharacters();
 }
 
+// Update Conditions
+function updateCondition(index, condition) {
+  if (condition) {
+    if (!characters[index].conditions.includes(condition)) {
+      characters[index].conditions.push(condition);
+    }
+  } else {
+    characters[index].conditions = []; // Reset conditions if "None" is selected
+  }
+  saveToLocalStorage();
+  displayCharacters();
+}
+
 // Get the value from the HP input field
 function getHPInput(index) {
   const input = document.getElementById(`hp-input-${index}`);
@@ -75,64 +116,4 @@ function getHPInput(index) {
 }
 
 // Remove a character from the tracker
-function removeCharacter(index) {
-  characters.splice(index, 1);
-  saveToLocalStorage();
-  displayCharacters();
-}
-
-// Advance to the next turn
-function nextTurn() {
-  if (characters.length === 0) return;
-
-  currentIndex = (currentIndex + 1) % characters.length; // Loop back to the start
-  if (currentIndex === 0) {
-    roundCounter++;
-    document.getElementById('round-counter').innerText = `Round: ${roundCounter}`;
-  }
-  saveToLocalStorage();
-  displayCharacters();
-}
-
-// Dark Mode Toggle
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
-}
-
-// Export and Import
-function exportData() {
-  const dataStr = JSON.stringify(characters);
-  const blob = new Blob([dataStr], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'initiative-tracker.json';
-  a.click();
-}
-
-function importData(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    characters = JSON.parse(e.target.result);
-    saveToLocalStorage();
-    displayCharacters();
-  };
-  reader.readAsText(file);
-}
-
-// LocalStorage
-function saveToLocalStorage() {
-  localStorage.setItem('trackerData', JSON.stringify(characters));
-}
-
-function loadFromLocalStorage() {
-  const savedData = JSON.parse(localStorage.getItem('trackerData'));
-  if (savedData) {
-    characters = savedData;
-    displayCharacters();
-  }
-}
-
-// Load data on page load
-window.onload = loadFromLocalStorage;
+function removeCharacter
