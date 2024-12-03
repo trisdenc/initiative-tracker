@@ -56,7 +56,10 @@ function displayCharacters() {
         <span>HP: <strong>${char.hp}</strong>/${char.maxHp}</span>
         <span class="status ${char.status === 'Bloodied' ? 'bloodied' : char.status === 'Dead' ? 'dead' : ''}">${char.status}</span>
         <div class="conditions">
-          ${char.conditions.length > 0 ? char.conditions.map(c => `<span>${c}</span>`).join('') : 'No conditions'}
+          ${char.conditions.length > 0
+            ? char.conditions.map((c, conditionIndex) =>
+              `<span onclick="removeCondition(${index}, ${conditionIndex})">${c}</span>`).join('')
+            : 'No conditions'}
         </div>
         <div>
           <label class="condition-label">Condition:</label>
@@ -107,6 +110,13 @@ function updateCondition(index, condition) {
   } else {
     characters[index].conditions = []; // Reset conditions if "None" is selected
   }
+  saveToLocalStorage();
+  displayCharacters();
+}
+
+// Remove a condition from a character
+function removeCondition(characterIndex, conditionIndex) {
+  characters[characterIndex].conditions.splice(conditionIndex, 1); // Remove condition
   saveToLocalStorage();
   displayCharacters();
 }
